@@ -14,7 +14,7 @@ namespace Forms.DataAccess
         {
             if (Students.Any())
             {
-                return Students.Max(x => x.Id);
+                return Students.Max(x => x.Id) + 1;
             }
             return 1;
         }
