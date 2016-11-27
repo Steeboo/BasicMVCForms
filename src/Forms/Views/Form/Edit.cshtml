@@ -1,0 +1,45 @@
+﻿@using Forms.Models
+@model Student
+
+<div class="row">
+    @using (Html.BeginForm("CreateOrUpdate", "Form"))
+    {
+    <div class="grid">
+        <div class="row">
+            <div class="col-6">
+                <label for="StudentName">Naam van de student:</label>
+            </div>
+            <div class="col-6">
+                <!-- <input type="text" name="Name" value="@Model.Name" /> -->
+                @Html.EditorFor(x => x.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="DateOfBirth">Geboortedatum:</label>
+            </div>
+            <div class="col-6">
+                @*<input type="date" name="DateOfBirth" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" />*@                
+                @Html.TextBoxFor(x => x.DateOfBirth, "{0:yyyy-MM-dd}", new { value = Model.DateOfBirth, type = "date" })
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="col-6">
+                <label for="Height">Hoelang is de student (ingevoerd in hele cm):</label>
+            </div>
+            <div class="col-6">
+                <!-- <input type="text" name="Height" value="@Model.Height" /> -->
+                @Html.EditorFor(x => x.Height)
+            </div>
+        </div>
+       
+        <div class="row">
+            <div class="col-12">
+                @Html.HiddenFor(x => x.Id)
+                <input class="button" type="submit" value="Opslaan" /><input class="button" type="reset" value="Reset Form" />
+            </div>
+        </div>
+    </div>
+    }
+</div>

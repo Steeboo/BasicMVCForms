@@ -1,0 +1,20 @@
+﻿@using Forms.Models
+@model List<Student>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("Toevoegen", "Add")
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var student in Model)
+    {
+        <div class="col-3">@student.Name</div>
+        <div class="col-3">@student.Height</div>
+        <div class="col-3">@student.DateOfBirth.ToString("dd-MM-yyyy")</div>
+        <div class="col-3">
+            @Html.ActionLink("Bewerk", "Edit", new { id = student.Id })
+        </div>
+    }
+</div>
