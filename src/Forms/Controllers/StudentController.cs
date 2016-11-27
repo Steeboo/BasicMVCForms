@@ -22,7 +22,6 @@ namespace Forms.Controllers
                 return View(StudentRepository.Students.First(x => x.Id == id));
             }
             return View("Edit", new Student());
-
         }
 
         public IActionResult Add()
@@ -34,15 +33,12 @@ namespace Forms.Controllers
         public IActionResult CreateOrUpdate(Student student)
         {
             if (student.Id == 0)
-            {
-                student.Id = StudentRepository.GenerateId();
-                StudentRepository.Students.Add(student);
+            {                
+                StudentRepository.AddStudent(student);
             }
             else
             {
-                var oldStudent = StudentRepository.Students.First(x => x.Id == student.Id);
-                var index = StudentRepository.Students.IndexOf(oldStudent);
-                StudentRepository.Students[index] = student;
+                StudentRepository.ReplaceStudent(student);                
             }
 
             return RedirectToAction("Index", "Student");

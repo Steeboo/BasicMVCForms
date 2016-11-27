@@ -1,6 +1,7 @@
 ﻿using Forms.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,15 +9,25 @@ namespace Forms.DataAccess
 {
     public class StudentRepository
     {
-        public static IList<Student> Students { get; set; } = new List<Student>();
+        private static IList<Student> students = new List<Student>();
 
-        internal static int GenerateId()
+        public static IReadOnlyCollection<Student> Students
         {
-            if (Students.Any())
-            {
-                return Students.Max(x => x.Id) + 1;
-            }
-            return 1;
+            get { return new ReadOnlyCollection<Student>(students); }
+        }
+
+        internal static void AddStudent(Student student)
+        {
+            var id = Students.Any() ? Students.Max(x => x.Id) + 1 : 1;
+            student.Id = id;
+            students.Add(student);
+        }
+
+        internal static void ReplaceStudent(Student student)
+        {
+            var oldStudent = students.First(x => x.Id == student.Id);
+            var index = students.IndexOf(oldStudent);
+            students[index] = student;
         }
     }
 }
